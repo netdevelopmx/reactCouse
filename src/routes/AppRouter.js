@@ -5,7 +5,7 @@ import NoMatch from "../components/404";
 import Home from "../components/home";
 import AddExpense from "../components/addExpense";
 import EditExpense from "../components/editExpense";
-import Header from "../components/header";
+import Header from "../components/Header";
 import { Help, HelpPage } from "../components/help";
 
 
