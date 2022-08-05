@@ -6,10 +6,6 @@ const path = require("path");
 
 module.exports =(env) => {
  
-  const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-  const devMode = process.env.NODE_ENV !== "production";
-
-
   return {
     entry: './src/app.js',
     output: {
@@ -32,7 +28,7 @@ module.exports =(env) => {
           {
             test: /\.(sa|sc|c)ss$/i,
             use: [
-              devMode ? "style-loader" : MiniCssExtractPlugin.loader,
+              "style-loader",
               "css-loader",
               "postcss-loader",
               "sass-loader",
@@ -41,7 +37,6 @@ module.exports =(env) => {
 
         ]
       },
-      
     //devtool: isProduction ? 'hidden-source-map' : 'eval-cheap-module-source-map',
     devtool: 'hidden-source-map' ,
     devServer: {
