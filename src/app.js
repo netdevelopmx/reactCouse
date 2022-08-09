@@ -9,6 +9,11 @@ import configureStore from "./store/configureStore";
  
 import  getVisibleExpenses from "./selectors/expenses";
 
+import './firebase/firebase.js';
+import './playground/promises.js';
+
+
+
 const store = configureStore();
 
  
