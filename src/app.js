@@ -11,7 +11,7 @@ import  getVisibleExpenses from "./selectors/expenses";
 
 import './firebase/firebase.js';
 import './playground/promises.js';
-
+import { startSetExpenses } from "./actions/expenses";
 
 
 const store = configureStore();
@@ -29,8 +29,13 @@ const gbl = (
 );
  
 
- 
+
 const root = ReactDOM.createRoot(document.getElementById("app"));
 
-root.render(gbl);
+root.render(<p>loagind ...</p>);
+
+store.dispatch(startSetExpenses()).then(() => {
+    root.render(gbl);
+});
+
     

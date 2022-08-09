@@ -48,8 +48,9 @@ const SaveExpense = (expense , callback) => {
     description: expense.description,
     amount: expense.amount,
     createdAt: expense.createdAt,
+    note : expense.note,
   }).then((snapshot) => {
-    console.log(snapshot);
+    //console.log(snapshot);
      callback(snapshot);
     return snapshot.key;
   });
@@ -60,7 +61,7 @@ const GetExpensesById = (id) => {
   return onValue(
     ref(db, "/expenses/" + id),
     (snapshot) => {
-      console.log(snapshot.val());
+     // console.log(snapshot.val());
     },
     {
       onlyOnce: true,
@@ -68,51 +69,41 @@ const GetExpensesById = (id) => {
   );
 };
 
-const updateExpense = (id, expense) => {
-  update(ref(db, "/expenses/" + id), {
+const updateExpense = (id, expense , callback) => {
+  update(ref(db, "expenses/" + id), {
     description: expense.description,
     amount: expense.amount,
     createdAt: expense.createdAt,
+    note : expense.note,
+  }).then(() => {
+    callback();
   });
 }
 
 
-const DeleteExpense = (id) => {
-  remove(ref(db, "/expenses/" + id));
+const DeleteExpense = (id , callback) => {
+  remove(ref(db, "expenses/" + id))
+  .then(() => {
+    callback();
+  });;
 }
 
-const GetExpenses = () => {
+const GetExpenses = (callback) => {
   return get(expensesdb, (snapshot) => {
     
   }).then((snapshot) => {
+
+    
     snapshot.forEach((childSnapshot) => {
-      console.log(childSnapshot.val());
-      expenses.dis({
-        id: childSnapshot.key,
-        description: childSnapshot.val().description,
-        amount: childSnapshot.val().amount,
-        createdAt: childSnapshot.val().createdAt,
-      });
-
-
+      //console.log(childSnapshot.val());
+      callback(childSnapshot.val() , childSnapshot.key);
+ 
     }
     );
   }).catch((error) => {
     console.log(error);
   }).finally(() => {
-    console.log("Finally");
+   // console.log("Finally");
   });
 }
-
-// SaveExpense({
-//   id: "1",
-//   description: "Rent",
-//   amount: 100,
-//   createdAt: moment().valueOf(),
-// });
-
  
-
-// GetExpensesById("-N8z9VFRVEsD2qNnT4Ml");
-// DeleteExpense("-N8z9VFRVEsD2qNnT4Ml");
-// GetExpenses();

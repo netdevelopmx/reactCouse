@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
-import { addExpense , startAddExpense } from '../actions/expenses';
+import { addExpense , startAddExpense , startEditExpense,startRemoveExpense } from '../actions/expenses';
+import { useParams, useNavigate   } from 'react-router-dom';
 
 export class AddExpensePage extends React.Component {
   onSubmit = (expense) => {
     this.props.startAddExpense(expense);
-    //this.props.history.push('/');
+    this.props.navigation('/', {replace: true});
   };
   render() {
     return (
@@ -27,7 +28,10 @@ export class AddExpensePage extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startAddExpense: (expense) => dispatch(startAddExpense(expense))
+  startAddExpense: (expense) => dispatch(startAddExpense(expense)),
+  startEditExpense: (id, expense) => dispatch(startEditExpense(id, expense)),
+  startRemoveExpense: (id) => dispatch(startRemoveExpense(id)),
+  navigation :  useNavigate()
 });
 
 export default connect(undefined, mapDispatchToProps)(AddExpensePage);
