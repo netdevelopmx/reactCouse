@@ -13,6 +13,7 @@ import {
   once,
   push,
 } from "firebase/database";
+import { getAuth,GoogleAuthProvider  } from "firebase/auth";
 
 import expenses from "../selectors/expenses";
 
@@ -35,15 +36,24 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 
+const authapp = getAuth(app);
+
 const db = getDatabase(app);
 const expensesdb = ref(db, "expenses");
 
-export { firebase, SaveExpense, GetExpensesById, updateExpense, DeleteExpense, GetExpenses , db as default };
+const googleAuthProvider = new GoogleAuthProvider();
 
 
-const SaveExpense = (expense , callback) => {
+
+
+export {authapp, firebase, SaveExpense, GetExpensesById, updateExpense, DeleteExpense, GetExpenses , db as default };
+
+
+
+
+const SaveExpense = (uid, expense , callback) => {
   const db = getDatabase();
-  push(expensesdb, {
+  push(ref(db, "/expenses/" + uid), {
     id: expense.id,
     description: expense.description,
     amount: expense.amount,
@@ -58,6 +68,9 @@ const SaveExpense = (expense , callback) => {
 
 
 const GetExpensesById = (id) => {
+
+  
+
   return onValue(
     ref(db, "/expenses/" + id),
     (snapshot) => {
@@ -89,6 +102,8 @@ const DeleteExpense = (id , callback) => {
 }
 
 const GetExpenses = (callback) => {
+  
+
   return get(expensesdb, (snapshot) => {
     
   }).then((snapshot) => {

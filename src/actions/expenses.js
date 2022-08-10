@@ -9,7 +9,7 @@ export const addExpense = (expense) => ({
 
 export const startAddExpense = (expenseData = {}) => {
   return (dispatch, getState) => {
-    // const uid = getState().auth.uid;
+     const uid = getState().auth.uid;
     const {
       description = "",
       note = "",
@@ -81,9 +81,11 @@ export const setExpenses = (expenses) => ({
 
 export const startSetExpenses = () => {
   return (dispatch, getState) => {
-    //const uid = getState().auth.uid;
+    const uid = getState().auth.uid;
+    console.log(uid);
+
     const expenses = [];
-    return GetExpenses((snapshot , id) => {
+    return GetExpenses((snapshot , id)  => {
     
      // console.log("Data back in callback");
      // console.log(snapshot);

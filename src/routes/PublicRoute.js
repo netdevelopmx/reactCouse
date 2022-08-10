@@ -12,23 +12,18 @@ import { login } from "../actions/auth";
 
 ///Old Versions 
 
-const Myroutes = () => (
+const PublicMyroutes = () => (
   <div>
     <BrowserRouter>
       <div>
         <Header />
       </div>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/add-expense" element={<AddExpense />} />
-        <Route path="/edit-expense/:id" element={<EditExpense />} />
-        <Route path="/help" element={<Help />} />
-        <Route path="/help/:id" element={<HelpPage />} />
-        <Route path="*" element={<NoMatch />} />
+        <Route path="/" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   </div>
 );
 
-export default Myroutes;
+export default PublicMyroutes;
        
